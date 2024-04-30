@@ -1,2 +1,6 @@
-package com.example.userauthenticationservice.Dtos;public class LoginReq_dto {
+package com.example.userauthenticationservice.Dtos;
+
+public class LoginReqDto {
+
+
 }

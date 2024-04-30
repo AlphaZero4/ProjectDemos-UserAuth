@@ -1,2 +1,11 @@
-package com.example.userauthenticationservice.Dtos;public class UserReqDto {
+package com.example.userauthenticationservice.Dtos;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class UserReqDto {
+    String email;
+    String pwd;
 }
