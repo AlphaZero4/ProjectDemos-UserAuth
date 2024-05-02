@@ -32,9 +32,16 @@ public class AuthController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<UserRespDto> login(UserReqDto dto){
+    public ResponseEntity<UserRespDto> login(@RequestBody UserReqDto dto){
+try {
+    User user = authService.login(dto.getEmail(), dto.getPwd());
+    UserRespDto response = UserToDto(user);
+    return new ResponseEntity<>(response,HttpStatus.OK);
+}
+catch (Exception e){
+    System.out.println("exception");
+    return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);}
 
-        return null;
     }
 
 public UserRespDto UserToDto(User user){
