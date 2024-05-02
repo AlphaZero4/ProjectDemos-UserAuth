@@ -7,22 +7,21 @@ import com.example.userauthenticationservice.Services.iAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/auth")
 @RestController
-public class AuthController {
+public class AuthController { 
     //sign up
     //login
     //forgot pwd
     //logout
     @Autowired
     iAuthService authService;
-    @PostMapping("/auth/signup")
+    @PostMapping("/signup")
     public ResponseEntity<UserRespDto> signup(@RequestBody  UserReqDto dto){
         //UserRespDto response;
+        System.out.println("test1");
       try{ User user= authService.signup(dto.getEmail(), dto.getPwd());
         UserRespDto responseDto = UserToDto(user);
         //return null;
@@ -32,11 +31,12 @@ public class AuthController {
             return null;
         }
     }
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<UserRespDto> login(UserReqDto dto){
 
         return null;
     }
+
 public UserRespDto UserToDto(User user){
         UserRespDto response = new UserRespDto();
         response.setEmail(user.getEmail());
@@ -44,5 +44,11 @@ public UserRespDto UserToDto(User user){
 return response;
 
 }
+    @GetMapping("/test")
+    public ResponseEntity<String> login(){
+        String s= "success";
+        return new ResponseEntity<String>(s,HttpStatus.OK);
+
+    }
 
 }

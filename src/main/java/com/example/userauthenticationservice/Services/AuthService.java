@@ -11,12 +11,10 @@ import java.util.Optional;
 @Service
 public class AuthService implements iAuthService{
 
-
+@Autowired
     private UserRepo repo;
 
-    AuthService(UserRepo repos){
-        this.repo = repos;
-    }
+
 
     @Override
     public User signup(String email, String pwd) throws E_UserExists {
@@ -29,8 +27,8 @@ public class AuthService implements iAuthService{
             return saveduser;
         }
         else{
-            throw new E_UserExists("User already exists!");
-
+            //throw new E_UserExists("User already exists!");
+            return user.get();
         }
         //return null;
     }
