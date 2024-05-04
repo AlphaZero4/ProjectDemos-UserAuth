@@ -4,9 +4,11 @@ import com.example.userauthenticationservice.Dtos.UserReqDto;
 import com.example.userauthenticationservice.Dtos.UserRespDto;
 import com.example.userauthenticationservice.Models.User;
 import com.example.userauthenticationservice.Services.iAuthService;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/auth")
@@ -34,9 +36,9 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<UserRespDto> login(@RequestBody UserReqDto dto){
 try {
-    User user = authService.login(dto.getEmail(), dto.getPwd());
-    UserRespDto response = UserToDto(user);
-    return new ResponseEntity<>(response,HttpStatus.OK);
+    Pair<User, MultiValueMap<String,String>> UserHeader = authService.login(dto.getEmail(), dto.getPwd());
+    UserRespDto response = UserToDto(UserHeader.a);
+    return new ResponseEntity<>(response,UserHeader.b,HttpStatus.OK);
 }
 catch (Exception e){
     System.out.println("exception");
