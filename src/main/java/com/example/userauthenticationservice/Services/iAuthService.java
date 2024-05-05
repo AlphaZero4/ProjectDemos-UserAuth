@@ -8,4 +8,5 @@ import org.antlr.v4.runtime.misc.Pair;
 public interface iAuthService {
     public User signup(String email, String pwd) throws E_UserExists;
     public Pair<User, MultiValueMap<String,String>> login (String email, String pwd);
+    public Boolean validate (Long userid,String token);
 }

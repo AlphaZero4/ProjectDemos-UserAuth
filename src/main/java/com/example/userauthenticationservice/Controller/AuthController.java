@@ -2,6 +2,7 @@ package com.example.userauthenticationservice.Controller;
 
 import com.example.userauthenticationservice.Dtos.UserReqDto;
 import com.example.userauthenticationservice.Dtos.UserRespDto;
+import com.example.userauthenticationservice.Dtos.ValidateReqDto;
 import com.example.userauthenticationservice.Models.User;
 import com.example.userauthenticationservice.Services.iAuthService;
 import org.antlr.v4.runtime.misc.Pair;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping("/auth")
 @RestController
@@ -51,6 +54,15 @@ public UserRespDto UserToDto(User user){
         response.setEmail(user.getEmail());
         response.setRoles(user.getRoles());
 return response;
+
+}
+
+@PostMapping("/validate")
+public ResponseEntity<Boolean> validate(@RequestBody ValidateReqDto request){
+
+    Boolean response = authService.validate(request.getUserid(),request.getToken());
+    return new ResponseEntity<>(response,HttpStatus.OK);
+
 
 }
     @GetMapping("/test")
